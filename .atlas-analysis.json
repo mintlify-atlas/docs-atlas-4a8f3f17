@@ -1,0 +1,41 @@
+{
+  "projectType": "frontend",
+  "projectName": "Wiloza",
+  "projectDescription": "Personal landing page with animated particle background and interactive music player for Williams Lopez Zavaleta",
+  "theme": "willow",
+  "primaryColor": "#cf9c6c",
+  "lightColor": "#473e35",
+  "darkColor": "#e1dcc9",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "pages": ["introduction", "features"]
+      },
+      {
+        "group": "Getting Started",
+        "pages": ["setup", "customization"]
+      },
+      {
+        "group": "Components",
+        "pages": ["components/particles", "components/music-player", "components/profile"]
+      },
+      {
+        "group": "Reference",
+        "pages": ["reference/html-structure", "reference/css-styles", "reference/javascript"]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Animated particle.js background with interactive hover and click effects",
+    "Built-in music player with play/pause controls and volume adjustment",
+    "Responsive centered profile layout with custom styling",
+    "Social media integration for Facebook and external store links"
+  ],
+  "publicApiSurface": [
+    "particlesJS configuration object",
+    "Audio player controls (play, pause, volume)",
+    "Font Awesome icon integration",
+    "Google Analytics tracking setup"
+  ]
+}
