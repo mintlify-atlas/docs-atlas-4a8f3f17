@@ -1,0 +1,877 @@
+---
+title: 'Customization Guide'
+description: 'Learn how to personalize the Wiloza landing page with your own content, colors, and style'
+---
+
+This guide covers all the ways you can customize the Wiloza landing page to make it your own.
+
+## Quick Customization Checklist
+
+<CardGroup cols={2}>
+  <Card title="Personal Info" icon="user">
+    Update name, links, and profile image
+  </Card>
+  <Card title="Visual Style" icon="palette">
+    Modify colors, fonts, and animations
+  </Card>
+  <Card title="Background Music" icon="music">
+    Replace audio file and player settings
+  </Card>
+  <Card title="Particles" icon="sparkles">
+    Adjust animation effects and behavior
+  </Card>
+</CardGroup>
+
+## Personal Information
+
+### Update Name and Title
+
+Edit the `<h1>` tag in `index.html` (line 45):
+
+```html
+<h1><a href="https://www.facebook.com/wiloza/">JL ZV </a></h1>
+```
+
+**Customize it:**
+
+```html
+<h1><a href="https://yourwebsite.com/">Your Name</a></h1>
+```
+
+<Tip>
+  The link wraps the entire name, so clicking your name will navigate to the URL you specify.
+</Tip>
+
+### Change Profile Image
+
+Replace the profile image on line 44 of `index.html`:
+
+```html
+<a href="https://pengrafic.rdi.store/">
+  <img src="wiloza.png" alt="Polos - Wiloza" class="profile-pic">
+</a>
+```
+
+**To customize:**
+
+<Steps>
+  <Step title="Prepare Your Image">
+    - Recommended size: 300x300 pixels or larger
+    - Format: PNG with transparency works best
+    - Name your file (e.g., `profile.png`)
+  </Step>
+
+  <Step title="Update HTML">
+    ```html
+    <a href="https://yourportfolio.com/">
+      <img src="profile.png" alt="Your Name" class="profile-pic">
+    </a>
+    ```
+  </Step>
+
+  <Step title="Adjust Size (Optional)">
+    Modify the image width in `particula.css` (line 27):
+    ```css
+    .profile-img {
+      width: 300px; /* Adjust this value */
+      height: auto;
+      display: block;
+      margin: 0 auto 20px;
+    }
+    ```
+  </Step>
+</Steps>
+
+<Note>
+  The current HTML uses class `profile-pic` but the CSS defines `.profile-img`. Make sure your image has the class that matches your CSS rules.
+</Note>
+
+## Color Scheme
+
+### Background Gradient
+
+The animated background uses a radial gradient. Customize it in `particula.css` (line 12):
+
+**Current gradient:**
+```css
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #28a745 0%, #1a4d1a 100%);
+    z-index: -1;
+}
+```
+
+**Customization examples:**
+
+<CodeGroup>
+```css Blue Theme
+#particles-js {
+    background: radial-gradient(circle, #4da6ff 0%, #0d47a1 100%);
+}
+```
+
+```css Purple Theme
+#particles-js {
+    background: radial-gradient(circle, #9c27b0 0%, #4a148c 100%);
+}
+```
+
+```css Dark Theme
+#particles-js {
+    background: radial-gradient(circle, #424242 0%, #121212 100%);
+}
+```
+
+```css Sunset Theme
+#particles-js {
+    background: radial-gradient(circle, #ff6b6b 0%, #ee5a24 100%);
+}
+```
+</CodeGroup>
+
+<Tip>
+  Use [Coolors](https://coolors.co) or [Adobe Color](https://color.adobe.com) to generate gradient color combinations.
+</Tip>
+
+### Particle Colors
+
+Change particle and line colors in `particula.js` (line 24):
+
+**Current configuration:**
+```javascript
+"particles": {
+  "color": {"value": "#ffffff"},  // Particle color
+  "line_linked": {
+    "enable": true,
+    "distance": 150,
+    "color": "#ffffff",  // Line color
+    "opacity": 0.4,
+    "width": 1
+  }
+}
+```
+
+**Try different colors:**
+```javascript
+// Golden particles
+"color": {"value": "#ffd700"}
+
+// Multi-color particles (random)
+"color": {"value": ["#ffffff", "#ff6b6b", "#4ecdc4", "#ffe66d"]}
+```
+
+### Text Colors
+
+Modify text color in `particula.css` (line 35):
+
+```css
+h1 {
+    color: white;  /* Change to any color */
+    font-family: 'Inter', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+}
+
+h1 a {
+    color: white;  /* Link color */
+    text-decoration: none;
+}
+```
+
+<Warning>
+  Ensure sufficient contrast between text and background for readability. Use tools like [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) to verify accessibility.
+</Warning>
+
+## Typography
+
+### Change Font Family
+
+The page currently uses the Inter font from Google Fonts. To change it:
+
+<Steps>
+  <Step title="Choose a New Font">
+    Browse [Google Fonts](https://fonts.google.com) and select a font.
+  </Step>
+
+  <Step title="Update Import">
+    In `particula.css` (line 2), replace the font import:
+    ```css
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    ```
+  </Step>
+
+  <Step title="Apply Font">
+    Update the font-family in the h1 styles:
+    ```css
+    h1 {
+        font-family: 'Roboto', sans-serif;
+    }
+    ```
+  </Step>
+</Steps>
+
+### Adjust Text Size
+
+Modify font size in `particula.css` (line 37):
+
+```css
+h1 {
+    font-size: 3rem;  /* Default: 3rem (48px) */
+}
+```
+
+**Responsive sizing:**
+```css
+h1 {
+    font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;  /* Smaller on mobile */
+    }
+}
+```
+
+### Letter Spacing
+
+Control letter spacing in `particula.css` (line 39):
+
+```css
+h1 {
+    letter-spacing: -1px;  /* Negative = tighter, positive = wider */
+}
+```
+
+## Background Music
+
+### Replace Music File
+
+<Steps>
+  <Step title="Prepare Your Audio">
+    - Format: MP3 (best compatibility)
+    - Recommended: Compressed to 128-192 kbps
+    - Keep file size under 5MB for faster loading
+  </Step>
+
+  <Step title="Replace File">
+    Place your MP3 file in the project root and name it `music.mp3`, or update the reference in `index.html` (line 49):
+    ```html
+    <audio id="miAudio" loop>
+        <source src="your-music.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    ```
+  </Step>
+
+  <Step title="Update Fallback Text (Optional)">
+    Change the Spanish text to English or your preferred language:
+    ```html
+    <audio id="miAudio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    ```
+  </Step>
+</Steps>
+
+<Note>
+  The `loop` attribute makes the music repeat continuously. Remove it if you want the music to play only once.
+</Note>
+
+### Adjust Default Volume
+
+Modify the initial volume in `index.html` (line 57):
+
+```html
+<input type="range" id="controlVolumen" min="0" max="1" step="0.1" value="0.5">
+```
+
+**Volume levels:**
+- `value="0.5"` - 50% volume (default)
+- `value="0.3"` - 30% volume (quieter)
+- `value="0.8"` - 80% volume (louder)
+- `value="1.0"` - 100% volume (maximum)
+
+### Customize Music Player Styling
+
+Modify the player appearance in `particula.css` (lines 49-75):
+
+```css
+.music-player {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);  /* Semi-transparent white */
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);  /* Glassmorphism effect */
+}
+```
+
+**Style variations:**
+
+<CodeGroup>
+```css Solid Background
+.music-player {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: none;
+}
+```
+
+```css Colored Glass
+.music-player {
+    background: rgba(76, 175, 80, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+```
+
+```css Minimal
+.music-player {
+    background: transparent;
+    backdrop-filter: none;
+    padding: 10px;
+}
+```
+</CodeGroup>
+
+### Style Play/Pause Button
+
+Customize the button in `particula.css` (lines 77-93):
+
+```css
+#btnPlayPausa {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;  /* Makes it circular */
+    border: none;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+#btnPlayPausa:hover {
+    transform: scale(1.1);  /* Grows on hover */
+}
+```
+
+**Custom button styles:**
+
+<CodeGroup>
+```css Colored Button
+#btnPlayPausa {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#btnPlayPausa i {
+    color: white;
+}
+```
+
+```css Outlined Button
+#btnPlayPausa {
+    background: transparent;
+    border: 2px solid white;
+}
+
+#btnPlayPausa i {
+    color: white;
+}
+```
+
+```css Animated Pulse
+#btnPlayPausa {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+}
+```
+</CodeGroup>
+
+## Particle Effects
+
+### Adjust Particle Count
+
+Modify density in `particula.js` (line 24):
+
+```javascript
+"particles": {
+  "number": {
+    "value": 80,  // Number of particles
+    "density": {
+      "enable": true,
+      "value_area": 800  // Density per area
+    }
+  }
+}
+```
+
+**Recommendations:**
+- **Light:** 40-60 particles
+- **Medium:** 80-100 particles (default)
+- **Heavy:** 120-150 particles
+- **Extreme:** 200+ particles (may impact performance)
+
+### Particle Size
+
+Change size parameters:
+
+```javascript
+"size": {
+  "value": 3,       // Base size
+  "random": true,   // Vary sizes
+  "anim": {
+    "enable": false,  // Enable size animation
+    "speed": 40,
+    "size_min": 0.1,
+    "sync": false
+  }
+}
+```
+
+**Enable pulsing particles:**
+```javascript
+"size": {
+  "value": 4,
+  "random": true,
+  "anim": {
+    "enable": true,   // Particles grow and shrink
+    "speed": 40,
+    "size_min": 0.1,
+    "sync": false
+  }
+}
+```
+
+### Particle Speed
+
+Adjust movement speed:
+
+```javascript
+"move": {
+  "enable": true,
+  "speed": 6,  // Movement speed (default: 6)
+  "direction": "none",
+  "random": false,
+  "straight": false,
+  "out_mode": "out",
+  "bounce": false
+}
+```
+
+**Speed presets:**
+- **Slow:** `speed: 2`
+- **Medium:** `speed: 6` (default)
+- **Fast:** `speed: 10`
+
+### Connection Lines
+
+Customize the lines connecting particles:
+
+```javascript
+"line_linked": {
+  "enable": true,    // Show/hide lines
+  "distance": 150,   // Max distance to draw lines
+  "color": "#ffffff",
+  "opacity": 0.4,    // Line transparency
+  "width": 1         // Line thickness
+}
+```
+
+**Disable lines completely:**
+```javascript
+"line_linked": {
+  "enable": false
+}
+```
+
+**Thicker, more visible lines:**
+```javascript
+"line_linked": {
+  "enable": true,
+  "distance": 200,
+  "color": "#ffffff",
+  "opacity": 0.7,
+  "width": 2
+}
+```
+
+### Interaction Effects
+
+Customize mouse interactions in `particula.js`:
+
+**Hover effect (repulse):**
+```javascript
+"interactivity": {
+  "events": {
+    "onhover": {
+      "enable": true,
+      "mode": "repulse"  // Options: "grab", "bubble", "repulse"
+    }
+  },
+  "modes": {
+    "repulse": {
+      "distance": 200,   // Repulse radius
+      "duration": 0.4
+    }
+  }
+}
+```
+
+**Click effect (push):**
+```javascript
+"onclick": {
+  "enable": true,
+  "mode": "push"  // Add particles on click
+},
+"modes": {
+  "push": {
+    "particles_nb": 4  // Particles added per click
+  }
+}
+```
+
+<Tip>
+  Try different interaction modes:
+  - **grab**: Draws lines to particles near cursor
+  - **bubble**: Particles grow when cursor is near
+  - **repulse**: Particles move away from cursor
+  - **push**: Adds particles on click
+  - **remove**: Removes particles on click
+</Tip>
+
+## Social Media & SEO
+
+### Update Open Graph Tags
+
+Modify social media preview in `index.html` (lines 5-12):
+
+```html
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.wiloza.com/">
+<meta property="og:title" content="Polos dev ux/ui">
+<meta property="og:description" content="Polos personalizados dirigido a desarrolladores web, diseñadores ux/ui y gamers.">
+<meta property="og:image" content="https://www.wiloza.com/images/wiloza_redes2026.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+```
+
+**Customize for your site:**
+
+<CodeGroup>
+```html Personal Portfolio
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yoursite.com/">
+<meta property="og:title" content="John Doe - Web Developer">
+<meta property="og:description" content="Full-stack developer specializing in React and Node.js. Check out my portfolio!">
+<meta property="og:image" content="https://yoursite.com/images/social-preview.jpg">
+```
+
+```html Music Producer
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yoursite.com/">
+<meta property="og:title" content="DJ Nova - Electronic Music">
+<meta property="og:description" content="Electronic music producer and DJ. Listen to my latest tracks!">
+<meta property="og:image" content="https://yoursite.com/images/artist-cover.jpg">
+```
+
+```html Designer Portfolio
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yoursite.com/">
+<meta property="og:title" content="Jane Smith - UX Designer">
+<meta property="og:description" content="Creating delightful user experiences through thoughtful design.">
+<meta property="og:image" content="https://yoursite.com/images/design-preview.jpg">
+```
+</CodeGroup>
+
+<Note>
+  The preview image should be:
+  - **Size:** 1200x630 pixels (Facebook/LinkedIn standard)
+  - **Format:** JPG or PNG
+  - **Location:** Hosted on your domain with absolute URL
+</Note>
+
+### Update Page Title
+
+Change the browser tab title in `index.html` (line 27):
+
+```html
+<title>Wiloza - Williams Lopez Zavaleta</title>
+```
+
+Customize it:
+```html
+<title>Your Name - Your Profession</title>
+```
+
+### Replace Favicon
+
+Update the favicon in `index.html` (line 30):
+
+```html
+<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+```
+
+<Steps>
+  <Step title="Create Favicon">
+    Use a tool like [Favicon.io](https://favicon.io) to generate a favicon from text or image.
+  </Step>
+
+  <Step title="Replace File">
+    Place your new `favicon.ico` in the `images/` folder.
+  </Step>
+
+  <Step title="Clear Browser Cache">
+    Hard refresh (Ctrl+F5) to see the new favicon.
+  </Step>
+</Steps>
+
+### Google Analytics
+
+Update the tracking ID in `index.html` (lines 14-22):
+
+```html
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TYKW6F9T6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4TYKW6F9T6');  // Replace with your tracking ID
+</script>
+```
+
+<Warning>
+  Replace `G-4TYKW6F9T6` with your own Google Analytics 4 tracking ID. Get one from [Google Analytics](https://analytics.google.com).
+</Warning>
+
+## Advanced Customizations
+
+### Add Additional Content
+
+You can add more sections inside the `.content-overlay` div:
+
+```html
+<div class="content-overlay">
+    <img src="wiloza.png" alt="Profile" class="profile-pic">
+    <h1><a href="https://yoursite.com/">Your Name</a></h1>
+    
+    <!-- Add subtitle -->
+    <p class="subtitle">Web Developer & Designer</p>
+    
+    <!-- Add social icons -->
+    <div class="social-links">
+        <a href="https://github.com/yourusername">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/yourusername">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://twitter.com/yourusername">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </div>
+    
+    <div class="music-player">
+        <!-- Existing music player code -->
+    </div>
+</div>
+```
+
+**Add corresponding styles to `particula.css`:**
+
+```css
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    color: #4da6ff;
+}
+```
+
+### Remove Stats Display
+
+The page includes a particle counter in the corner. To remove it, delete or comment out this section in `particula.js` (line 24):
+
+```javascript
+// Remove or comment out these lines:
+var count_particles, stats, update;
+stats = new Stats;
+stats.setMode(0);
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+```
+
+### Mobile Responsiveness
+
+Add mobile-specific styles to `particula.css`:
+
+```css
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .profile-img {
+        width: 200px;
+    }
+    
+    .music-player {
+        padding: 10px;
+        margin-top: 15px;
+    }
+    
+    #btnPlayPausa {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+```
+
+## Testing Your Changes
+
+<Steps>
+  <Step title="Save All Files">
+    Ensure all HTML, CSS, and JS files are saved.
+  </Step>
+
+  <Step title="Hard Refresh Browser">
+    Press `Ctrl + F5` (Windows/Linux) or `Cmd + Shift + R` (Mac) to clear cache and reload.
+  </Step>
+
+  <Step title="Check Browser Console">
+    Press `F12` to open developer tools and check for errors in the Console tab.
+  </Step>
+
+  <Step title="Test on Multiple Devices">
+    Use browser developer tools to test responsive design on different screen sizes.
+  </Step>
+</Steps>
+
+## Example Themes
+
+Here are complete color schemes you can copy:
+
+<Accordion title="Ocean Theme">
+  **particula.css:**
+  ```css
+  #particles-js {
+      background: radial-gradient(circle, #006994 0%, #001f3f 100%);
+  }
+  ```
+  
+  **particula.js:**
+  ```javascript
+  "color": {"value": "#4ecdc4"},
+  "line_linked": {
+      "color": "#4ecdc4",
+      "opacity": 0.3
+  }
+  ```
+</Accordion>
+
+<Accordion title="Sunset Theme">
+  **particula.css:**
+  ```css
+  #particles-js {
+      background: radial-gradient(circle, #ff6b6b 0%, #ee5a24 100%);
+  }
+  ```
+  
+  **particula.js:**
+  ```javascript
+  "color": {"value": "#ffe66d"},
+  "line_linked": {
+      "color": "#ffe66d",
+      "opacity": 0.5
+  }
+  ```
+</Accordion>
+
+<Accordion title="Midnight Theme">
+  **particula.css:**
+  ```css
+  #particles-js {
+      background: radial-gradient(circle, #2c3e50 0%, #000000 100%);
+  }
+  ```
+  
+  **particula.js:**
+  ```javascript
+  "color": {"value": "#9b59b6"},
+  "line_linked": {
+      "color": "#9b59b6",
+      "opacity": 0.4
+  }
+  ```
+</Accordion>
+
+<Accordion title="Forest Theme">
+  **particula.css:**
+  ```css
+  #particles-js {
+      background: radial-gradient(circle, #27ae60 0%, #0f3d0f 100%);
+  }
+  ```
+  
+  **particula.js:**
+  ```javascript
+  "color": {"value": "#a8e6cf"},
+  "line_linked": {
+      "color": "#a8e6cf",
+      "opacity": 0.4
+  }
+  ```
+</Accordion>
+
+## Resources
+
+<CardGroup cols={2}>
+  <Card title="Particles.js Docs" icon="book" href="https://github.com/VincentGarreau/particles.js">
+    Complete documentation for particle effects
+  </Card>
+  <Card title="Font Awesome Icons" icon="icons" href="https://fontawesome.com/icons">
+    Browse thousands of free icons
+  </Card>
+  <Card title="Google Fonts" icon="font" href="https://fonts.google.com">
+    Free web fonts for your design
+  </Card>
+  <Card title="Coolors" icon="palette" href="https://coolors.co">
+    Generate beautiful color palettes
+  </Card>
+</CardGroup>
+
+<Tip>
+  Make changes incrementally and test after each modification. This makes it easier to identify what breaks if something goes wrong.
+</Tip>

@@ -1,0 +1,422 @@
+---
+title: 'Profile Section'
+description: 'Centered profile layout with image, heading, and social media links'
+icon: 'user'
+---
+
+## Overview
+
+The profile section is the central focal point of the Wiloza landing page, featuring a centered layout with a profile image, stylized name heading, and integrated social media links. The section uses absolute positioning and transform techniques to achieve perfect centering over the particle background.
+
+<Note>
+The profile section sits above the particles background with `z-index: 1`, ensuring all content remains visible and interactive.
+</Note>
+
+## HTML Structure
+
+The profile content is wrapped in a content overlay container:
+
+```html
+<div class="content-overlay">
+  <a href="https://pengrafic.rdi.store/">
+    <img src="wiloza.png" alt="Polos - Wiloza" class="profile-pic">
+  </a>
+  <h1>
+    <a href="https://www.facebook.com/wiloza/">JL ZV</a>
+  </h1>
+  
+  <!-- Music player follows -->
+  <div class="music-player">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+<Warning>
+Ensure all profile images have descriptive `alt` text for accessibility and SEO.
+</Warning>
+
+## Perfect Centering
+
+The content overlay uses absolute positioning with transform for perfect centering:
+
+```css
+.content-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /* Perfect center alignment */
+  text-align: center;
+  width: 100%;
+  z-index: 1;                        /* Above particles */
+}
+```
+
+<Tip>
+The `transform: translate(-50%, -50%)` technique centers elements regardless of their dimensions, making it ideal for responsive layouts.
+</Tip>
+
+## Profile Image Styling
+
+The profile image is styled with auto-sizing and centered margins:
+
+```css
+.profile-img {
+  width: 300px;              /* Fixed width */
+  height: auto;              /* Maintain aspect ratio */
+  display: block;
+  margin: 0 auto 20px;       /* Center horizontally, 20px bottom margin */
+}
+```
+
+<Note>
+The CSS uses `.profile-img` class but the HTML uses `class="profile-pic"`. Ensure class names match in your implementation.
+</Note>
+
+## Heading Typography
+
+The name heading uses custom typography with tight letter spacing:
+
+```css
+h1 {
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: -1px;      /* Negative spacing pulls letters closer */
+  text-transform: uppercase;
+}
+
+h1 a {
+  color: white;
+  text-decoration: none;     /* Remove underline from link */
+}
+```
+
+### Font Import
+
+The Inter font is imported from Google Fonts:
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+```
+
+<CardGroup cols={2}>
+  <Card title="Font Size" icon="text-height">
+    The heading uses `3rem` (48px on most browsers) for bold, attention-grabbing text.
+  </Card>
+  
+  <Card title="Letter Spacing" icon="text-width">
+    Negative letter spacing (`-1px`) creates a tighter, more modern appearance.
+  </Card>
+</CardGroup>
+
+## Layout Components
+
+<Accordion title="Content Overlay Container">
+The main wrapper that centers all profile content:
+
+```css
+.content-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}
+```
+
+**Key Features:**
+- Absolute positioning for overlay effect
+- Transform centering for perfect alignment
+- Full width to accommodate responsive content
+- Higher z-index to stay above particles
+</Accordion>
+
+<Accordion title="Profile Image">
+The clickable profile picture with link to external site:
+
+```html
+<a href="https://pengrafic.rdi.store/">
+  <img src="wiloza.png" alt="Polos - Wiloza" class="profile-pic">
+</a>
+```
+
+```css
+.profile-img {
+  width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+}
+```
+
+**Styling Notes:**
+- Fixed 300px width for consistency
+- Auto height maintains aspect ratio
+- Block display for proper margin behavior
+- Bottom margin separates from heading
+</Accordion>
+
+<Accordion title="Name Heading">
+The stylized name display with social media link:
+
+```html
+<h1>
+  <a href="https://www.facebook.com/wiloza/">JL ZV</a>
+</h1>
+```
+
+```css
+h1 {
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+h1 a {
+  color: white;
+  text-decoration: none;
+}
+```
+
+**Typography Features:**
+- Inter font for modern, clean look
+- Bold weight for prominence
+- Uppercase transformation
+- Tight letter spacing
+- White color for contrast on green background
+</Accordion>
+
+## Customization Guide
+
+<Steps>
+  <Step title="Adjust profile image size">
+    Modify the width in CSS:
+    
+    ```css
+    .profile-img {
+      width: 250px;  /* Smaller image */
+      /* or */
+      width: 400px;  /* Larger image */
+    }
+    ```
+  </Step>
+  
+  <Step title="Change font family">
+    Import a different Google Font and update CSS:
+    
+    ```css
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    
+    h1 {
+      font-family: 'Poppins', sans-serif;
+    }
+    ```
+  </Step>
+  
+  <Step title="Modify heading size">
+    Adjust the font-size property:
+    
+    ```css
+    h1 {
+      font-size: 4rem;    /* Larger */
+      /* or */
+      font-size: 2.5rem;  /* Smaller */
+    }
+    ```
+  </Step>
+  
+  <Step title="Update social links">
+    Replace URLs in the HTML:
+    
+    ```html
+    <h1>
+      <a href="https://twitter.com/yourusername">Your Name</a>
+    </h1>
+    ```
+  </Step>
+</Steps>
+
+## Responsive Considerations
+
+<CardGroup cols={2}>
+  <Card title="Mobile Scaling" icon="mobile">
+    Consider adding media queries for smaller screens:
+    
+    ```css
+    @media (max-width: 768px) {
+      .profile-img {
+        width: 200px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    ```
+  </Card>
+  
+  <Card title="Tablet Optimization" icon="tablet">
+    Adjust spacing and sizes for tablet devices:
+    
+    ```css
+    @media (max-width: 1024px) {
+      .profile-img {
+        width: 250px;
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+    ```
+  </Card>
+</CardGroup>
+
+## Layout Structure
+
+The profile section follows this hierarchy:
+
+```
+┌─────────────────────────────────────┐
+│     .content-overlay (centered)     │
+│  ┌───────────────────────────────┐  │
+│  │   Profile Image (clickable)   │  │
+│  └───────────────────────────────┘  │
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │   Heading with Link           │  │
+│  │   "JL ZV"                     │  │
+│  └───────────────────────────────┘  │
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │   Music Player Component      │  │
+│  └───────────────────────────────┘  │
+└─────────────────────────────────────┘
+```
+
+## Advanced Enhancements
+
+### Add Hover Effects
+
+Enhance interactivity with hover animations:
+
+```css
+.profile-img {
+  transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+  transform: scale(1.05);  /* Slight zoom on hover */
+}
+
+h1 a {
+  transition: color 0.3s ease;
+}
+
+h1 a:hover {
+  color: #28a745;  /* Green accent on hover */
+}
+```
+
+### Add Social Media Icons
+
+Extend the profile with icon links:
+
+```html
+<div class="social-links">
+  <a href="https://www.facebook.com/wiloza/">
+    <i class="fab fa-facebook"></i>
+  </a>
+  <a href="https://twitter.com/username">
+    <i class="fab fa-twitter"></i>
+  </a>
+  <a href="https://github.com/username">
+    <i class="fab fa-github"></i>
+  </a>
+</div>
+```
+
+```css
+.social-links {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.social-links a {
+  color: white;
+  font-size: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.social-links a:hover {
+  transform: translateY(-5px);
+}
+```
+
+### Add Subtitle or Tagline
+
+```html
+<h1>
+  <a href="https://www.facebook.com/wiloza/">JL ZV</a>
+</h1>
+<p class="tagline">Developer • Designer • Creator</p>
+```
+
+```css
+.tagline {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  letter-spacing: 2px;
+}
+```
+
+<Tip>
+Keep the profile section clean and uncluttered. Too many elements can dilute the visual impact.
+</Tip>
+
+## Accessibility Best Practices
+
+<Steps>
+  <Step title="Add descriptive alt text">
+    ```html
+    <img src="wiloza.png" alt="Williams Lopez Zavaleta profile picture">
+    ```
+  </Step>
+  
+  <Step title="Ensure sufficient contrast">
+    White text on the green gradient background provides good contrast (>4.5:1 ratio).
+  </Step>
+  
+  <Step title="Make links keyboard accessible">
+    All anchor tags are naturally keyboard focusable. Consider adding focus styles:
+    
+    ```css
+    a:focus {
+      outline: 2px solid white;
+      outline-offset: 4px;
+    }
+    ```
+  </Step>
+  
+  <Step title="Add semantic HTML">
+    Use appropriate heading levels and landmark elements:
+    
+    ```html
+    <main class="content-overlay">
+      <header>
+        <img src="wiloza.png" alt="Profile">
+        <h1>JL ZV</h1>
+      </header>
+    </main>
+    ```
+  </Step>
+</Steps>

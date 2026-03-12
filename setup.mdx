@@ -1,0 +1,312 @@
+---
+title: 'Setup Guide'
+description: 'Complete setup instructions for the Wiloza landing page'
+---
+
+This guide will walk you through setting up the Wiloza landing page project on your local machine or server.
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+<CardGroup cols={2}>
+  <Card title="Web Browser" icon="browser">
+    Any modern browser (Chrome, Firefox, Safari, Edge)
+  </Card>
+  <Card title="Text Editor" icon="code">
+    VS Code, Sublime Text, or any code editor
+  </Card>
+  <Card title="Local Server (Optional)" icon="server">
+    Python, Node.js, or any local server solution
+  </Card>
+  <Card title="Music File" icon="music">
+    MP3 file for the background music player
+  </Card>
+</CardGroup>
+
+## Project Structure
+
+The Wiloza landing page consists of the following files:
+
+```
+wiloza/
+├── index.html          # Main HTML file
+├── particula.css       # Stylesheet for particles and layout
+├── particula.js        # JavaScript for particles and music player
+├── music.mp3           # Background music file
+├── wiloza.png          # Profile image
+└── images/
+    ├── favicon.ico     # Browser favicon
+    └── wiloza_redes2026.jpg  # Social media preview image
+```
+
+<Note>
+  All files must be in the same directory for the page to work correctly. The `images/` folder should contain the favicon and social media preview image.
+</Note>
+
+## Installation Steps
+
+<Steps>
+  <Step title="Download or Clone the Project">
+    Download all project files to a folder on your computer. Ensure the file structure matches the layout above.
+
+    ```bash
+    git clone <your-repository-url>
+    cd wiloza
+    ```
+  </Step>
+
+  <Step title="Verify Required Files">
+    Check that you have all necessary files:
+    
+    - `index.html` - Main page structure
+    - `particula.css` - Styling
+    - `particula.js` - Interactive functionality
+    - `music.mp3` - Your audio file
+    - `wiloza.png` - Profile/logo image
+    - `images/favicon.ico` - Browser icon
+    - `images/wiloza_redes2026.jpg` - Social preview
+
+    <Warning>
+      Missing files will cause broken links or missing functionality. Ensure all paths match your file names exactly.
+    </Warning>
+  </Step>
+
+  <Step title="Configure External Dependencies">
+    The project uses CDN links for external libraries. These are already included in `index.html`:
+
+    ```html
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Stats.js for particle count -->
+    <script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+    ```
+
+    <Tip>
+      No installation is required for these libraries. They load automatically from CDNs when you open the page.
+    </Tip>
+  </Step>
+
+  <Step title="Test Locally">
+    You can open the page directly in your browser or use a local server:
+
+    <Accordion title="Option 1: Direct File Opening">
+      Simply double-click `index.html` or right-click and select "Open with Browser".
+      
+      <Note>
+        Some features like audio autoplay may be restricted when opening files directly. Using a local server is recommended.
+      </Note>
+    </Accordion>
+
+    <Accordion title="Option 2: Python Server">
+      If you have Python installed:
+
+      ```bash
+      # Python 3
+      python -m http.server 8000
+
+      # Python 2
+      python -m SimpleHTTPServer 8000
+      ```
+
+      Then open `http://localhost:8000` in your browser.
+    </Accordion>
+
+    <Accordion title="Option 3: Node.js Server">
+      Using `http-server` (install with npm):
+
+      ```bash
+      npm install -g http-server
+      http-server -p 8000
+      ```
+
+      Then open `http://localhost:8000` in your browser.
+    </Accordion>
+
+    <Accordion title="Option 4: VS Code Live Server">
+      If using VS Code:
+      1. Install the "Live Server" extension
+      2. Right-click `index.html`
+      3. Select "Open with Live Server"
+    </Accordion>
+  </Step>
+
+  <Step title="Verify Functionality">
+    Once the page loads, verify:
+    
+    - ✅ Animated particles appear in the background
+    - ✅ Profile image displays correctly
+    - ✅ Music player controls are visible
+    - ✅ Play/pause button works
+    - ✅ Volume slider adjusts audio level
+    - ✅ Particles respond to mouse hover (repulse effect)
+    - ✅ Clicking creates new particles
+  </Step>
+</Steps>
+
+## Deployment Options
+
+### Static Hosting Services
+
+This is a static website and can be deployed to any static hosting service:
+
+<CardGroup cols={2}>
+  <Card title="GitHub Pages" icon="github" href="https://pages.github.com">
+    Free hosting directly from your repository
+  </Card>
+  <Card title="Netlify" icon="cloud" href="https://www.netlify.com">
+    Drag-and-drop deployment with continuous deployment
+  </Card>
+  <Card title="Vercel" icon="triangle" href="https://vercel.com">
+    Zero-config deployment for static sites
+  </Card>
+  <Card title="Cloudflare Pages" icon="cloud" href="https://pages.cloudflare.com">
+    Fast global CDN with free SSL
+  </Card>
+</CardGroup>
+
+### GitHub Pages Deployment
+
+<Steps>
+  <Step title="Push to GitHub">
+    ```bash
+    git init
+    git add .
+    git commit -m "Initial commit"
+    git branch -M main
+    git remote add origin <your-repo-url>
+    git push -u origin main
+    ```
+  </Step>
+
+  <Step title="Enable GitHub Pages">
+    1. Go to your repository settings
+    2. Navigate to "Pages" section
+    3. Select "main" branch as source
+    4. Click "Save"
+  </Step>
+
+  <Step title="Access Your Site">
+    Your site will be available at:
+    ```
+    https://<username>.github.io/<repository-name>/
+    ```
+  </Step>
+</Steps>
+
+### Netlify Deployment
+
+<Steps>
+  <Step title="Drag and Drop">
+    1. Go to [Netlify](https://app.netlify.com)
+    2. Drag your project folder to the upload area
+    3. Your site will be live in seconds
+  </Step>
+
+  <Step title="Custom Domain (Optional)">
+    Configure a custom domain in Netlify's domain settings
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<Accordion title="Particles not appearing">
+  **Problem:** Background is solid color with no particles
+
+  **Solutions:**
+  - Check browser console (F12) for JavaScript errors
+  - Verify particles.js is loading from CDN
+  - Ensure `particula.js` is properly linked in `index.html`
+  - Check that the `particles-js` div exists in your HTML:
+    ```html
+    <div id="particles-js"></div>
+    ```
+</Accordion>
+
+<Accordion title="Music not playing">
+  **Problem:** Music player shows but no sound plays
+
+  **Solutions:**
+  - Verify `music.mp3` exists in the same directory
+  - Check file name matches exactly: `music.mp3`
+  - Ensure audio file is not corrupted
+  - Try a different browser (some block autoplay)
+  - Check browser's volume and site permissions
+</Accordion>
+
+<Accordion title="Images not loading">
+  **Problem:** Broken image icons appear
+
+  **Solutions:**
+  - Verify image file paths in `index.html`:
+    ```html
+    <img src="wiloza.png" alt="Profile">
+    <link rel="icon" href="images/favicon.ico">
+    ```
+  - Ensure images folder structure is correct
+  - Check file names match exactly (case-sensitive on Linux/Mac)
+</Accordion>
+
+<Accordion title="Icons not showing">
+  **Problem:** Play/pause button shows square or missing icon
+
+  **Solutions:**
+  - Check Font Awesome CDN is loading:
+    ```html
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    ```
+  - Verify internet connection (CDN resources need network access)
+  - Check browser console for 404 errors
+</Accordion>
+
+## Performance Optimization
+
+<Tip>
+  For better performance, consider these optimizations:
+</Tip>
+
+### Reduce Particle Count
+
+In `particula.js`, adjust the particle count based on device capability:
+
+```javascript
+"particles": {
+  "number": {
+    "value": 80,  // Reduce to 40-50 for mobile devices
+    "density": {
+      "enable": true,
+      "value_area": 800
+    }
+  }
+}
+```
+
+### Optimize Images
+
+- Compress `wiloza.png` and social preview images
+- Use WebP format for better compression
+- Ensure images are appropriately sized (not larger than displayed)
+
+### Audio File Size
+
+- Use compressed MP3 with appropriate bitrate (128kbps is usually sufficient)
+- Consider using a shorter loop for background music
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Customize Your Page" icon="palette" href="/customization">
+    Learn how to personalize colors, text, and content
+  </Card>
+  <Card title="Analytics Setup" icon="chart-line">
+    The page includes Google Analytics (gtag.js) - update the tracking ID
+  </Card>
+</CardGroup>
+
+<Note>
+  Your Google Analytics tracking ID is currently set to `G-4TYKW6F9T6` in the HTML. Replace this with your own tracking ID to monitor your site's traffic.
+</Note>

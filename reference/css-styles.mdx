@@ -1,0 +1,426 @@
+---
+title: 'CSS Styles'
+description: 'Complete CSS styling documentation for the Wiloza landing page'
+---
+
+## Overview
+
+The Wiloza landing page uses a combination of reset styles, gradient backgrounds, and glassmorphism effects to create a modern, visually appealing interface. The CSS leverages custom Google Fonts, radial gradients, and backdrop filters for a polished look.
+
+## Font Import
+
+The page uses the Inter font family from Google Fonts:
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+```
+
+<Note>
+Inter is loaded with two weights: 400 (regular) and 700 (bold), optimized with `display=swap` to prevent invisible text during font loading.
+</Note>
+
+## Reset Styles
+
+Basic reset styles normalize browser defaults:
+
+```css
+/* ---- reset ---- */
+body {
+  margin: 0;
+  font: normal 75% Arial, Helvetica, sans-serif;
+}
+
+canvas {
+  display: block;
+  vertical-align: bottom;
+}
+```
+
+<Tip>
+Removing default body margin prevents unwanted spacing, while the canvas reset ensures particles render correctly without baseline alignment issues.
+</Tip>
+
+## Particles Container
+
+The particles container creates a full-screen animated background with a radial gradient:
+
+```css
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #28a745 0%, #1a4d1a 100%);
+  z-index: -1;
+}
+```
+
+<CardGroup cols={2}>
+  <Card title="Full Viewport Coverage" icon="expand">
+    `position: fixed` with 100% width/height ensures the background fills the entire screen and stays in place during scrolling.
+  </Card>
+  <Card title="Gradient Background" icon="palette">
+    Radial gradient transitions from bright green (#28a745) at center to dark green (#1a4d1a) at edges, creating depth.
+  </Card>
+</CardGroup>
+
+### Alternative Background Configuration
+
+The original code also includes an alternative background setup:
+
+```css
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #229327;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+```
+
+<Warning>
+The `background-image: url("")` is empty in the source. If you want to add a background image, replace the empty string with an image path.
+</Warning>
+
+## Content Overlay
+
+The content overlay centers all visible content using absolute positioning and transforms:
+
+```css
+.content-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}
+```
+
+<Accordion title="Centering Technique Explained">
+  This is a classic CSS centering technique:
+  
+  1. `position: absolute` removes the element from normal flow
+  2. `top: 50%` and `left: 50%` position the top-left corner at the viewport center
+  3. `transform: translate(-50%, -50%)` shifts the element back by half its own dimensions
+  4. Result: Perfect centering regardless of content size
+</Accordion>
+
+## Profile Image Styling
+
+```css
+.profile-img {
+  width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+}
+```
+
+<Note>
+The image maintains aspect ratio with `height: auto` and centers horizontally with `margin: 0 auto`. The bottom margin (20px) provides spacing from the title below.
+</Note>
+
+## Typography
+
+### Heading Styles
+
+The main heading uses the Inter font with dramatic styling:
+
+```css
+h1 {
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+h1 a {
+  color: white;
+  text-decoration: none;
+}
+```
+
+<CardGroup cols={3}>
+  <Card title="Large Size" icon="text-height">
+    3rem font size creates a bold, attention-grabbing headline.
+  </Card>
+  <Card title="Tight Kerning" icon="compress">
+    Negative letter-spacing (-1px) brings letters closer together for a modern, condensed look.
+  </Card>
+  <Card title="Uppercase Transform" icon="font">
+    Text-transform ensures consistent uppercase styling regardless of source text.
+  </Card>
+</CardGroup>
+
+## Music Player Glassmorphism
+
+The music player uses modern glassmorphism effects:
+
+```css
+.music-player {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+```
+
+### Glassmorphism Breakdown
+
+| Property | Value | Effect |
+|----------|-------|--------|
+| `background` | `rgba(255, 255, 255, 0.1)` | Semi-transparent white (10% opacity) |
+| `backdrop-filter` | `blur(5px)` | Blurs content behind the element |
+| `border-radius` | `10px` | Rounded corners for modern look |
+| `padding` | `15px` | Internal spacing for content |
+
+<Tip>
+The combination of low-opacity background and backdrop-filter blur creates the signature "frosted glass" effect that's trending in modern UI design.
+</Tip>
+
+## Controls Layout
+
+The controls use flexbox for horizontal alignment:
+
+```css
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+```
+
+<Note>
+The `gap` property provides 10px spacing between the play button and volume slider without requiring margins.
+</Note>
+
+## Button Styling
+
+### Generic Button Styles
+
+```css
+button {
+  padding: 8px 15px;
+  cursor: pointer;
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+```
+
+### Play/Pause Button
+
+The play/pause button has custom circular styling with hover effects:
+
+```css
+#btnPlayPausa {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+#btnPlayPausa:hover {
+  transform: scale(1.1);
+}
+
+#btnPlayPausa i {
+  color: #333;
+}
+```
+
+<CardGroup cols={2}>
+  <Card title="Circular Shape" icon="circle">
+    Equal width/height (50px) with `border-radius: 50%` creates a perfect circle.
+  </Card>
+  <Card title="Hover Animation" icon="hand-pointer">
+    The button scales to 110% on hover with a smooth 0.2s transition for interactive feedback.
+  </Card>
+</CardGroup>
+
+### Icon Centering
+
+```css
+#btnPlayPausa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+<Tip>
+Using flexbox to center the Font Awesome icon ensures perfect alignment regardless of the icon's intrinsic size.
+</Tip>
+
+## Volume Control Styling
+
+```css
+input[type="range"] {
+  cursor: pointer;
+}
+```
+
+<Note>
+The range input gets a pointer cursor to indicate interactivity. Browser default styling is preserved for the slider appearance.
+</Note>
+
+## Stats.js Styling
+
+Stats display for particle count and performance metrics:
+
+```css
+.count-particles {
+  background: #000022;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 80px;
+  color: #13E8E9;
+  font-size: .8em;
+  text-align: left;
+  text-indent: 4px;
+  line-height: 14px;
+  padding-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+.js-count-particles {
+  font-size: 1.1em;
+}
+
+#stats, .count-particles {
+  -webkit-user-select: none;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#stats {
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+
+.count-particles {
+  border-radius: 0 0 3px 3px;
+}
+```
+
+<Accordion title="Stats Display Layout">
+  The stats panel appears in the top-left corner with:
+  
+  - Dark blue background (#000022) for contrast
+  - Cyan text (#13E8E9) for visibility
+  - Rounded corners (top for #stats, bottom for .count-particles)
+  - User-select disabled to prevent accidental text selection
+  - Small font sizes (0.8em to 1.1em) to stay unobtrusive
+</Accordion>
+
+## Color Palette
+
+The page uses a consistent green color scheme:
+
+<CardGroup cols={3}>
+  <Card title="Primary Green" icon="circle" iconType="solid">
+    `#28a745` - Bright green used in gradient center
+  </Card>
+  <Card title="Dark Green" icon="circle" iconType="solid">
+    `#1a4d1a` - Dark green used in gradient edges
+  </Card>
+  <Card title="Background Green" icon="circle" iconType="solid">
+    `#229327` - Alternative solid background color
+  </Card>
+</CardGroup>
+
+Additional accent colors:
+
+| Color | Hex | Usage |
+|-------|-----|-------|
+| White | `#ffffff` | Text, buttons, particle lines |
+| Dark Gray | `#333` | Button icons |
+| Stats Background | `#000022` | Stats panel background |
+| Stats Text | `#13E8E9` | Cyan for stats counter |
+
+## Responsive Considerations
+
+<Warning>
+The current CSS doesn't include specific responsive breakpoints. Consider adding media queries for smaller screens to adjust:
+- `h1` font-size (reduce from 3rem)
+- Profile image width (reduce from 300px)
+- Music player padding
+- Content overlay width constraints
+</Warning>
+
+### Suggested Mobile Improvements
+
+```css
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .profile-img {
+    width: 200px;
+  }
+  
+  .music-player {
+    margin: 20px 15px 0;
+  }
+}
+```
+
+## Browser Compatibility
+
+<CardGroup cols={2}>
+  <Card title="Modern Features" icon="wand-magic-sparkles">
+    `backdrop-filter` requires modern browsers (Chrome 76+, Safari 9+, Edge 79+). Not supported in Firefox without flag.
+  </Card>
+  <Card title="Fallback Strategy" icon="shield-halved">
+    Consider adding a fallback background for browsers without backdrop-filter support.
+  </Card>
+</CardGroup>
+
+### Backdrop Filter Fallback
+
+```css
+.music-player {
+  background: rgba(255, 255, 255, 0.2); /* Slightly more opaque for non-blur browsers */
+  backdrop-filter: blur(5px);
+}
+
+/* Fallback for unsupported browsers */
+@supports not (backdrop-filter: blur(5px)) {
+  .music-player {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+```
+
+## Animation and Transitions
+
+The only explicit transition in the CSS is on the play button:
+
+```css
+#btnPlayPausa {
+  transition: transform 0.2s;
+}
+```
+
+<Tip>
+This creates a smooth scale animation on hover. Consider adding transitions to other interactive elements like the volume slider for enhanced UX.
+</Tip>

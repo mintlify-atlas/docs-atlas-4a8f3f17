@@ -1,0 +1,294 @@
+---
+title: 'Particles Background'
+description: 'Interactive particle system using particles.js for an engaging animated background'
+icon: 'sparkles'
+---
+
+## Overview
+
+The Wiloza landing page features an interactive particle system powered by [particles.js](https://github.com/VincentGarreau/particles.js), creating a dynamic background with white particles that respond to user interactions. The particles are rendered on a radial gradient green background and provide hover and click effects.
+
+<Note>
+The particle system uses HTML5 Canvas for optimal performance and supports retina displays.
+</Note>
+
+## Installation
+
+The particles.js library is loaded from a CDN in the HTML file:
+
+```html
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+```
+
+## HTML Structure
+
+The particles are rendered in a dedicated container that sits behind all other content:
+
+```html
+<!-- particles.js container -->
+<div id="particles-js"></div>
+
+<div class="content-overlay">
+  <!-- Your content goes here -->
+</div>
+```
+
+## Configuration
+
+The particle system is configured with the following settings in `particula.js`:
+
+```javascript
+particlesJS("particles-js", {
+  "particles": {
+    "number": {
+      "value": 80,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#ffffff"
+    },
+    "shape": {
+      "type": "circle",
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "polygon": {
+        "nb_sides": 5
+      }
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 3,
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 6,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false,
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "push"
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 40,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 200,
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
+    }
+  },
+  "retina_detect": false
+});
+```
+
+## Styling
+
+The particles container is styled to cover the full viewport with a green radial gradient background:
+
+```css
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #28a745 0%, #1a4d1a 100%);
+  z-index: -1; /* Sends particles to the background */
+}
+```
+
+<Warning>
+The `z-index: -1` is critical to ensure the particles stay behind the content overlay.
+</Warning>
+
+## Interactive Features
+
+<CardGroup cols={2}>
+  <Card title="Hover Effect" icon="hand-pointer">
+    When users hover over particles, they repel away from the cursor with a distance of 200px and a duration of 0.4 seconds.
+  </Card>
+  
+  <Card title="Click Effect" icon="mouse-pointer">
+    Clicking anywhere on the canvas adds 4 new particles at the click location, creating an engaging interactive experience.
+  </Card>
+</CardGroup>
+
+## Customization Options
+
+<Accordion title="Particle Count">
+Control the number of particles displayed:
+
+```javascript
+"number": {
+  "value": 80,  // Number of particles
+  "density": {
+    "enable": true,
+    "value_area": 800  // Particles per 800px²
+  }
+}
+```
+</Accordion>
+
+<Accordion title="Particle Appearance">
+Customize the look of individual particles:
+
+```javascript
+"color": { "value": "#ffffff" },  // White particles
+"opacity": { "value": 0.5 },       // 50% opacity
+"size": {
+  "value": 3,        // Base size of 3px
+  "random": true     // Randomize sizes
+}
+```
+</Accordion>
+
+<Accordion title="Connected Lines">
+Particles are connected with lines when within range:
+
+```javascript
+"line_linked": {
+  "enable": true,
+  "distance": 150,      // Max distance for connections
+  "color": "#ffffff",   // White lines
+  "opacity": 0.4,       // 40% opacity
+  "width": 1            // 1px line width
+}
+```
+</Accordion>
+
+<Accordion title="Movement Settings">
+Control how particles move across the canvas:
+
+```javascript
+"move": {
+  "enable": true,
+  "speed": 6,            // Movement speed
+  "direction": "none",   // Random directions
+  "random": false,
+  "straight": false,
+  "out_mode": "out"     // Particles exit and re-enter
+}
+```
+</Accordion>
+
+## Performance Monitoring
+
+The implementation includes stats.js for monitoring particle performance:
+
+```javascript
+var stats = new Stats();
+stats.setMode(0);
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+
+// Update particle count
+count_particles = document.querySelector('.js-count-particles');
+update = function() {
+  stats.begin();
+  stats.end();
+  if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+    count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+  }
+  requestAnimationFrame(update);
+};
+requestAnimationFrame(update);
+```
+
+<Tip>
+The stats display shows FPS and particle count in real-time, useful for debugging performance issues.
+</Tip>
+
+## Browser Compatibility
+
+particles.js works in all modern browsers that support:
+- HTML5 Canvas
+- requestAnimationFrame API
+- ES5 JavaScript
+
+<Note>
+Retina detection is disabled in this configuration (`"retina_detect": false`) for consistent cross-device performance.
+</Note>
+
+## Best Practices
+
+<Steps>
+  <Step title="Optimize particle count">
+    Keep particle count between 50-100 for optimal performance on most devices.
+  </Step>
+  
+  <Step title="Test interactivity">
+    Ensure hover and click effects work smoothly without causing lag.
+  </Step>
+  
+  <Step title="Consider mobile">
+    Test on mobile devices and reduce particle count if needed for performance.
+  </Step>
+  
+  <Step title="Monitor performance">
+    Use the built-in stats display during development to track FPS.
+  </Step>
+</Steps>

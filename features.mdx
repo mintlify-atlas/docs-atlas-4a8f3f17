@@ -1,0 +1,602 @@
+---
+title: Features
+description: In-depth guide to all features in the Wiloza landing page
+---
+
+# Features Overview
+
+Wiloza combines multiple interactive features to create an engaging landing page experience. Each feature is carefully implemented using modern web technologies.
+
+<CardGroup cols={2}>
+  <Card title="Particle Animation System" icon="sparkles">
+    Interactive particle network with hover and click effects
+  </Card>
+  
+  <Card title="Music Player" icon="music">
+    Built-in audio player with play/pause and volume controls
+  </Card>
+  
+  <Card title="Social Integration" icon="share-nodes">
+    Open Graph meta tags for rich social media previews
+  </Card>
+  
+  <Card title="Analytics Tracking" icon="chart-simple">
+    Google Analytics 4 integration for visitor insights
+  </Card>
+</CardGroup>
+
+---
+
+## Particle Animation System
+
+The particle system is the visual centerpiece of Wiloza, powered by particles.js library. It creates an animated network of interconnected particles that respond to user interaction.
+
+### Configuration
+
+The particle system is configured in `particula.js` with the following settings:
+
+<CodeGroup>
+```javascript particula.js
+particlesJS("particles-js", {
+  "particles": {
+    "number": {
+      "value": 80,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#ffffff"
+    },
+    "shape": {
+      "type": "circle",
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      }
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false
+    },
+    "size": {
+      "value": 3,
+      "random": true
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 6,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false
+    }
+  }
+});
+```
+
+```css particula.css
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #28a745 0%, #1a4d1a 100%);
+    z-index: -1;
+}
+```
+</CodeGroup>
+
+### Particle Properties
+
+<Accordion title="Number & Density">
+  **Count:** 80 particles distributed across the screen
+  
+  **Density:** Enabled with value area of 800px² - particles automatically adjust based on screen size to maintain consistent visual density
+  
+  ```javascript
+  "number": {
+    "value": 80,
+    "density": {
+      "enable": true,
+      "value_area": 800
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="Appearance">
+  **Shape:** Circles with no stroke
+  
+  **Color:** White (`#ffffff`)
+  
+  **Opacity:** 50% (0.5) - creates a subtle, non-intrusive effect
+  
+  **Size:** 3px base with random variation for depth
+  
+  ```javascript
+  "color": { "value": "#ffffff" },
+  "opacity": { "value": 0.5, "random": false },
+  "size": { "value": 3, "random": true }
+  ```
+</Accordion>
+
+<Accordion title="Line Connections">
+  **Enabled:** Particles connect when within range
+  
+  **Distance:** 150px maximum connection distance
+  
+  **Color:** White lines with 40% opacity
+  
+  **Width:** 1px thin lines
+  
+  ```javascript
+  "line_linked": {
+    "enable": true,
+    "distance": 150,
+    "color": "#ffffff",
+    "opacity": 0.4,
+    "width": 1
+  }
+  ```
+</Accordion>
+
+<Accordion title="Movement">
+  **Speed:** 6 units - moderate, smooth movement
+  
+  **Direction:** None - particles move in random directions
+  
+  **Out Mode:** "out" - particles leave and re-enter from opposite side
+  
+  **Bounce:** Disabled - smooth continuous motion
+  
+  ```javascript
+  "move": {
+    "enable": true,
+    "speed": 6,
+    "direction": "none",
+    "out_mode": "out",
+    "bounce": false
+  }
+  ```
+</Accordion>
+
+### Interactive Modes
+
+The particle system responds to user interaction with three modes:
+
+<CodeGroup>
+```javascript Hover - Repulse Mode
+"interactivity": {
+  "events": {
+    "onhover": {
+      "enable": true,
+      "mode": "repulse"
+    }
+  },
+  "modes": {
+    "repulse": {
+      "distance": 200,
+      "duration": 0.4
+    }
+  }
+}
+```
+
+```javascript Click - Push Mode
+"interactivity": {
+  "events": {
+    "onclick": {
+      "enable": true,
+      "mode": "push"
+    }
+  },
+  "modes": {
+    "push": {
+      "particles_nb": 4
+    }
+  }
+}
+```
+
+```javascript Other Available Modes
+"modes": {
+  "grab": {
+    "distance": 400,
+    "line_linked": { "opacity": 1 }
+  },
+  "bubble": {
+    "distance": 400,
+    "size": 40,
+    "duration": 2,
+    "opacity": 8,
+    "speed": 3
+  }
+}
+```
+</CodeGroup>
+
+<Tip>
+  The **repulse mode** on hover creates a dynamic effect where particles move away from the cursor, creating a 200px radius "bubble" around it.
+</Tip>
+
+### Performance Monitoring
+
+Wiloza includes real-time performance tracking using Stats.js:
+
+```javascript particula.js
+stats = new Stats();
+stats.setMode(0); // 0: fps, 1: ms, 2: mb
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+
+// Count and display particle count
+count_particles = document.querySelector('.js-count-particles');
+update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+        count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+};
+requestAnimationFrame(update);
+```
+
+<Note>
+  The stats display shows FPS (frames per second) and the current number of active particles on screen.
+</Note>
+
+---
+
+## Music Player
+
+The integrated music player provides background audio with full user controls, featuring a modern glassmorphism design.
+
+### HTML Structure
+
+```html index.html
+<div class="music-player">
+    <audio id="miAudio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    
+    <div class="controls">
+        <button id="btnPlayPausa">
+            <i id="icono" class="fas fa-play"></i>
+        </button>
+        <input type="range" id="controlVolumen" min="0" max="1" step="0.1" value="0.5">
+    </div>
+</div>
+```
+
+### Styling
+
+The music player uses glassmorphism design principles:
+
+<CodeGroup>
+```css Container Styling
+.music-player {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+```
+
+```css Controls Layout
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+```
+
+```css Play/Pause Button
+#btnPlayPausa {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+#btnPlayPausa:hover {
+    transform: scale(1.1);
+}
+```
+</CodeGroup>
+
+### JavaScript Logic
+
+The music player functionality is implemented with vanilla JavaScript:
+
+<CodeGroup>
+```javascript Element References
+const audio = document.getElementById('miAudio');
+const btnPlayPausa = document.getElementById('btnPlayPausa');
+const icono = document.getElementById('icono');
+const controlVolumen = document.getElementById('controlVolumen');
+```
+
+```javascript Play/Pause Toggle
+btnPlayPausa.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        icono.className = 'fas fa-pause';
+    } else {
+        audio.pause();
+        icono.className = 'fas fa-play';
+    }
+});
+```
+
+```javascript Volume Control
+controlVolumen.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+});
+```
+</CodeGroup>
+
+### Key Features
+
+<CardGroup cols={2}>
+  <Card title="Looping Audio" icon="repeat">
+    Audio automatically loops using the `loop` attribute on the audio element
+  </Card>
+  
+  <Card title="Dynamic Icons" icon="icons">
+    Font Awesome icons toggle between play (fa-play) and pause (fa-pause)
+  </Card>
+  
+  <Card title="Volume Slider" icon="sliders">
+    Range input from 0.0 to 1.0 with 0.1 step increments, default at 0.5 (50%)
+  </Card>
+  
+  <Card title="Hover Effects" icon="hand-pointer">
+    Button scales to 110% on hover for visual feedback
+  </Card>
+</CardGroup>
+
+<Warning>
+  Most browsers require user interaction before playing audio. The music won't autoplay on page load - users must click the play button first.
+</Warning>
+
+---
+
+## Social Media Integration
+
+Wiloza includes comprehensive Open Graph meta tags for rich social media previews when shared on platforms like Facebook, Twitter, and LinkedIn.
+
+### Open Graph Configuration
+
+```html index.html
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.wiloza.com/">
+<meta property="og:title" content="Polos dev ux/ui">
+<meta property="og:description" content="Polos personalizados dirigido a desarrolladores web, diseñadores ux/ui y gamers.">
+<meta property="og:image" content="https://www.wiloza.com/images/wiloza_redes2026.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+```
+
+### Meta Tag Breakdown
+
+<Accordion title="Basic Properties">
+  **Type:** `website` - Indicates this is a standard website page
+  
+  **URL:** `https://www.wiloza.com/` - Canonical URL for the page
+  
+  **Title:** Displayed as the headline in social previews
+  
+  **Description:** Shown as preview text below the title
+</Accordion>
+
+<Accordion title="Image Properties">
+  **Image URL:** Full path to the preview image
+  
+  **Dimensions:** 1200x630 pixels - the optimal size for social media platforms
+  
+  **Why these dimensions?**
+  - Facebook: Recommends 1200x630
+  - Twitter: Supports 2:1 ratio
+  - LinkedIn: Optimal at 1200x627
+  
+  <Tip>
+    Using 1200x630 ensures your image displays correctly across all major social platforms without cropping.
+  </Tip>
+</Accordion>
+
+### Social Links
+
+The page includes clickable links to social profiles:
+
+```html index.html
+<!-- Profile image links to store -->
+<a href="https://pengrafic.rdi.store/">
+    <img src="wiloza.png" alt="Polos - Wiloza" class="profile-pic">
+</a>
+
+<!-- Name links to Facebook profile -->
+<h1>
+    <a href="https://www.facebook.com/wiloza/">JL ZV</a>
+</h1>
+```
+
+---
+
+## Analytics & Tracking
+
+Wiloza integrates Google Analytics 4 (GA4) for comprehensive visitor tracking and behavior analysis.
+
+### Implementation
+
+The analytics script is loaded in the document head:
+
+```html index.html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TYKW6F9T6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4TYKW6F9T6');
+</script>
+```
+
+### What Gets Tracked
+
+With the default GA4 configuration, the following events are automatically tracked:
+
+<CardGroup cols={2}>
+  <Card title="Page Views" icon="eye">
+    Every time someone loads the landing page
+  </Card>
+  
+  <Card title="User Demographics" icon="users">
+    Location, device type, browser, screen resolution
+  </Card>
+  
+  <Card title="Engagement" icon="clock">
+    Time on page, scroll depth, active engagement time
+  </Card>
+  
+  <Card title="Traffic Sources" icon="arrow-right-to-bracket">
+    How visitors found the page (direct, referral, social, search)
+  </Card>
+</CardGroup>
+
+### Tracked Interactions
+
+GA4's enhanced measurement automatically captures:
+
+- **Outbound clicks** - Links to Facebook and the store
+- **File downloads** - If any download links are added
+- **Video engagement** - Could track audio player interactions with custom events
+- **Scroll tracking** - How far users scroll down the page
+
+### Custom Event Tracking (Optional)
+
+You can add custom event tracking for specific interactions:
+
+```javascript Example: Track Music Player
+// Track when user plays music
+btnPlayPausa.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        gtag('event', 'music_play', {
+            'event_category': 'engagement',
+            'event_label': 'Music Player'
+        });
+        icono.className = 'fas fa-pause';
+    } else {
+        audio.pause();
+        gtag('event', 'music_pause', {
+            'event_category': 'engagement',
+            'event_label': 'Music Player'
+        });
+        icono.className = 'fas fa-play';
+    }
+});
+
+// Track volume changes
+controlVolumen.addEventListener('change', (e) => {
+    gtag('event', 'volume_change', {
+        'event_category': 'engagement',
+        'event_label': 'Volume',
+        'value': Math.round(e.target.value * 100)
+    });
+});
+```
+
+<Note>
+  The measurement ID `G-4TYKW6F9T6` is specific to this project. When deploying your own version, replace it with your Google Analytics property ID.
+</Note>
+
+---
+
+## Additional Features
+
+### Responsive Design
+
+The page uses viewport meta tag for mobile responsiveness:
+
+```html index.html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+The centered content overlay adapts to all screen sizes:
+
+```css particula.css
+.content-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+```
+
+### Typography
+
+Wiloza uses the Inter font family from Google Fonts:
+
+```css particula.css
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+h1 {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: -1px; /* Tighter letter spacing */
+    text-transform: uppercase;
+}
+```
+
+<Tip>
+  The negative letter-spacing (-1px) creates a more compact, modern look for the uppercase text.
+</Tip>
+
+### Favicon
+
+A custom favicon is included for browser tab branding:
+
+```html index.html
+<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+```
+
+### Glassmorphism Effect
+
+The music player uses modern glassmorphism design:
+
+```css particula.css
+.music-player {
+    background: rgba(255, 255, 255, 0.1);  /* 10% white transparency */
+    backdrop-filter: blur(5px);             /* Blur background behind */
+    border-radius: 10px;
+}
+```
+
+This creates a frosted glass effect that blends with the particle background while maintaining readability.

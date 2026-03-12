@@ -1,97 +1,107 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Wiloza - Personal Landing Page"
+description: "Interactive landing page with animated particle background and music player"
 ---
 
-## Setting up
+<div style={{
+  background: 'radial-gradient(circle, #238a2f 0%, #1a4d1a 100%)',
+  padding: '4rem 2rem',
+  borderRadius: '12px',
+  textAlign: 'center',
+  marginBottom: '3rem'
+}}>
+  <h1 style={{
+    fontSize: '3rem',
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: '1rem',
+    letterSpacing: '-1px'
+  }}>WILOZA</h1>
+  <p style={{
+    fontSize: '1.25rem',
+    color: '#e1dcc9',
+    marginBottom: '2rem'
+  }}>
+    Personal landing page featuring animated particles and interactive music
+  </p>
+</div>
 
-Get your documentation site up and running in minutes.
+## Welcome to Wiloza
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+Wiloza is a modern, interactive personal landing page built for Williams Lopez Zavaleta. It combines elegant visual effects with an immersive user experience, featuring animated particle backgrounds and an integrated music player.
 
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Quick Setup" icon="rocket" href="/setup">
+    Get your landing page running in minutes
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Features" icon="star" href="/features">
+    Explore all the interactive elements
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Customize" icon="palette" href="/customization">
+    Make it your own with simple modifications
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Components" icon="cube" href="/components/particles">
+    Deep dive into each component
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Key Features
 
-Everything you need to create world-class documentation.
+<AccordionGroup>
+  <Accordion title="Animated Particle Background" icon="sparkles">
+    Interactive particle.js integration with hover and click effects that respond to user interaction. White particles float across a gradient green background with dynamic movement patterns.
+  </Accordion>
+  
+  <Accordion title="Music Player" icon="music">
+    Built-in audio player with play/pause controls and adjustable volume slider. Supports looping background music with elegant glassmorphic UI controls.
+  </Accordion>
+  
+  <Accordion title="Responsive Design" icon="mobile">
+    Fully responsive layout that centers content perfectly on any screen size. Profile image, heading, and controls adapt seamlessly to different viewports.
+  </Accordion>
+  
+  <Accordion title="Social Integration" icon="share-nodes">
+    Direct links to Facebook profile and external store, making it easy for visitors to connect and explore your products.
+  </Accordion>
+</AccordionGroup>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## Built With
 
-## Need inspiration?
+The landing page uses modern web technologies:
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+- **particles.js** - For the animated particle background
+- **Font Awesome 6** - For music player icons
+- **Google Analytics** - For visitor tracking
+- **Vanilla JavaScript** - For music player controls
+- **Custom CSS** - For styling and glassmorphic effects
+
+## Get Started
+
+<Steps>
+  <Step title="Download the Files">
+    Clone or download the repository containing all HTML, CSS, and JavaScript files
+  </Step>
+  <Step title="Customize Content">
+    Update the profile image, links, and text to match your personal brand
+  </Step>
+  <Step title="Add Your Music">
+    Replace `music.mp3` with your own audio file for the background player
+  </Step>
+  <Step title="Deploy">
+    Upload to your web hosting service or deploy to platforms like GitHub Pages, Netlify, or Vercel
+  </Step>
+</Steps>
+
+## Quick Links
+
+<CardGroup cols={3}>
+  <Card title="HTML Structure" icon="code" href="/reference/html-structure">
+    Understand the page layout
+  </Card>
+  <Card title="CSS Styles" icon="paintbrush" href="/reference/css-styles">
+    Explore the styling system
+  </Card>
+  <Card title="JavaScript" icon="js" href="/reference/javascript">
+    Learn the interactive logic
+  </Card>
+</CardGroup>

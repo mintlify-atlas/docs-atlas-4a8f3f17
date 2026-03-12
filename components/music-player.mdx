@@ -1,0 +1,322 @@
+---
+title: 'Music Player'
+description: 'Embedded audio player with play/pause controls and volume adjustment'
+icon: 'music'
+---
+
+## Overview
+
+The Wiloza landing page features a custom-built music player with a modern glassmorphism design. The player supports looping background music, play/pause functionality with dynamic icon switching, and volume control via a range slider.
+
+<Note>
+The music player uses the HTML5 Audio API for broad browser compatibility and reliable playback.
+</Note>
+
+## HTML Structure
+
+The music player consists of an audio element and control interface:
+
+```html
+<div class="music-player">
+  <audio id="miAudio" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+  
+  <div class="controls">
+    <button id="btnPlayPausa">
+      <i id="icono" class="fas fa-play"></i>
+    </button>
+    <input type="range" id="controlVolumen" min="0" max="1" step="0.1" value="0.5">
+  </div>
+</div>
+```
+
+<Warning>
+The `loop` attribute ensures continuous playback. Remove it if you want the music to play only once.
+</Warning>
+
+## CSS Styling
+
+The music player uses a glassmorphism effect with backdrop blur:
+
+```css
+.music-player {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.1);  /* Semi-transparent white */
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);             /* Glassmorphism effect */
+}
+```
+
+### Controls Layout
+
+The controls are arranged horizontally using flexbox:
+
+```css
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+```
+
+### Play/Pause Button
+
+The circular play/pause button has hover animations:
+
+```css
+#btnPlayPausa {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;           /* Circular shape */
+  border: none;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: transform 0.2s;   /* Smooth scale animation */
+}
+
+#btnPlayPausa:hover {
+  transform: scale(1.1);        /* 10% larger on hover */
+}
+
+#btnPlayPausa i {
+  color: #333;
+}
+```
+
+### Volume Slider
+
+The range input provides volume control:
+
+```css
+input[type="range"] {
+  cursor: pointer;
+}
+```
+
+## JavaScript Functionality
+
+The music player logic is implemented in `particula.js`:
+
+### Element References
+
+First, we get references to all necessary DOM elements:
+
+```javascript
+const audio = document.getElementById('miAudio');
+const btnPlayPausa = document.getElementById('btnPlayPausa');
+const icono = document.getElementById('icono');
+const controlVolumen = document.getElementById('controlVolumen');
+```
+
+### Play/Pause Toggle
+
+The play/pause button toggles playback and updates the icon:
+
+```javascript
+btnPlayPausa.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    icono.className = 'fas fa-pause';  // Change to pause icon
+  } else {
+    audio.pause();
+    icono.className = 'fas fa-play';   // Change to play icon
+  }
+});
+```
+
+<Tip>
+The icon automatically switches between Font Awesome's `fa-play` and `fa-pause` classes based on the playback state.
+</Tip>
+
+### Volume Control
+
+The volume slider updates the audio element's volume property:
+
+```javascript
+controlVolumen.addEventListener('input', (e) => {
+  audio.volume = e.target.value;
+});
+```
+
+<Note>
+The volume range is 0.0 (silent) to 1.0 (full volume), with a default of 0.5 (50%).
+</Note>
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Looping Playback" icon="repeat">
+    The audio element includes the `loop` attribute for continuous background music.
+  </Card>
+  
+  <Card title="Dynamic Icons" icon="icons">
+    Font Awesome icons change automatically between play and pause states.
+  </Card>
+  
+  <Card title="Volume Control" icon="volume-high">
+    Range slider allows users to adjust volume from 0% to 100% in 10% increments.
+  </Card>
+  
+  <Card title="Glassmorphism Design" icon="brush">
+    Modern semi-transparent design with backdrop blur for a polished look.
+  </Card>
+</CardGroup>
+
+## Customization Guide
+
+<Accordion title="Change Default Volume">
+Modify the `value` attribute in the HTML:
+
+```html
+<input type="range" id="controlVolumen" 
+       min="0" max="1" step="0.1" 
+       value="0.3">  <!-- 30% volume -->
+```
+</Accordion>
+
+<Accordion title="Disable Looping">
+Remove the `loop` attribute from the audio element:
+
+```html
+<audio id="miAudio">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+```
+</Accordion>
+
+<Accordion title="Add Multiple Audio Formats">
+Provide fallback formats for better browser compatibility:
+
+```html
+<audio id="miAudio" loop>
+  <source src="music.mp3" type="audio/mpeg">
+  <source src="music.ogg" type="audio/ogg">
+  <source src="music.wav" type="audio/wav">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+```
+</Accordion>
+
+<Accordion title="Customize Button Appearance">
+Modify the CSS for different sizes or colors:
+
+```css
+#btnPlayPausa {
+  width: 60px;              /* Larger button */
+  height: 60px;
+  background: #28a745;      /* Green background */
+}
+
+#btnPlayPausa i {
+  color: white;             /* White icon */
+}
+```
+</Accordion>
+
+<Accordion title="Fine-tune Volume Steps">
+Adjust the `step` attribute for more precise control:
+
+```html
+<input type="range" id="controlVolumen" 
+       min="0" max="1" step="0.01"  <!-- 1% increments -->
+       value="0.5">
+```
+</Accordion>
+
+## Implementation Steps
+
+<Steps>
+  <Step title="Include Font Awesome">
+    Add Font Awesome CDN to your HTML head for icons:
+    
+    ```html
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    ```
+  </Step>
+  
+  <Step title="Add HTML structure">
+    Insert the music player HTML with audio element and controls.
+  </Step>
+  
+  <Step title="Add CSS styling">
+    Copy the glassmorphism styles and button animations to your stylesheet.
+  </Step>
+  
+  <Step title="Implement JavaScript logic">
+    Add the event listeners for play/pause and volume control.
+  </Step>
+  
+  <Step title="Add your music file">
+    Place your `music.mp3` file in the same directory as your HTML file.
+  </Step>
+</Steps>
+
+## Browser Compatibility
+
+The music player works in all browsers that support:
+- HTML5 Audio API
+- MP3 audio format
+- CSS backdrop-filter (for glassmorphism)
+- Modern CSS flexbox
+
+<Warning>
+Some browsers may block autoplay. Users must interact with the page (click the play button) before audio can play.
+</Warning>
+
+## Accessibility Considerations
+
+<CardGroup cols={2}>
+  <Card title="Keyboard Navigation" icon="keyboard">
+    The button and range input are focusable and operable via keyboard.
+  </Card>
+  
+  <Card title="Screen Readers" icon="ear-listen">
+    Consider adding `aria-label` attributes to improve screen reader support:
+    
+    ```html
+    <button id="btnPlayPausa" aria-label="Play or pause music">
+      <i id="icono" class="fas fa-play"></i>
+    </button>
+    ```
+  </Card>
+</CardGroup>
+
+## Advanced Features
+
+### Add Progress Bar
+
+Extend the player with a progress bar:
+
+```javascript
+const progressBar = document.getElementById('progressBar');
+
+audio.addEventListener('timeupdate', () => {
+  const progress = (audio.currentTime / audio.duration) * 100;
+  progressBar.style.width = progress + '%';
+});
+```
+
+### Add Playlist Support
+
+```javascript
+const playlist = ['music1.mp3', 'music2.mp3', 'music3.mp3'];
+let currentTrack = 0;
+
+audio.addEventListener('ended', () => {
+  currentTrack = (currentTrack + 1) % playlist.length;
+  audio.src = playlist[currentTrack];
+  audio.play();
+});
+```
+
+<Tip>
+For production use, consider adding error handling for cases where the audio file fails to load.
+</Tip>

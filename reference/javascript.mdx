@@ -1,0 +1,584 @@
+---
+title: 'JavaScript'
+description: 'Complete JavaScript documentation for the Wiloza landing page'
+---
+
+## Overview
+
+The JavaScript code in `particula.js` handles two main responsibilities: controlling the music player interface and configuring the particle animation system. The code combines vanilla JavaScript for DOM manipulation with the particles.js and stats.js libraries for visual effects.
+
+## Music Player Logic
+
+The music player provides play/pause controls and volume adjustment through a clean event-driven architecture.
+
+### DOM Element References
+
+First, the script gets references to all necessary DOM elements:
+
+```javascript
+const audio = document.getElementById('miAudio');
+const btnPlayPausa = document.getElementById('btnPlayPausa');
+const icono = document.getElementById('icono');
+const controlVolumen = document.getElementById('controlVolumen');
+```
+
+<CardGroup cols={2}>
+  <Card title="Audio Element" icon="music">
+    `miAudio` - The HTML5 audio element that plays the music file
+  </Card>
+  <Card title="Play Button" icon="circle-play">
+    `btnPlayPausa` - The button that toggles play/pause state
+  </Card>
+  <Card title="Icon Element" icon="icons">
+    `icono` - The Font Awesome icon inside the button that changes appearance
+  </Card>
+  <Card title="Volume Control" icon="sliders">
+    `controlVolumen` - The range input slider for volume adjustment
+  </Card>
+</CardGroup>
+
+### Play/Pause Toggle
+
+The play/pause button uses an event listener to toggle audio playback:
+
+```javascript
+btnPlayPausa.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        icono.className = 'fas fa-pause';
+    } else {
+        audio.pause();
+        icono.className = 'fas fa-play';
+    }
+});
+```
+
+<Steps>
+  <Step title="Check Audio State">
+    The `audio.paused` property returns `true` if audio is currently paused
+  </Step>
+  <Step title="Toggle Playback">
+    Calls `audio.play()` or `audio.pause()` based on current state
+  </Step>
+  <Step title="Update Icon">
+    Changes the Font Awesome class to show the appropriate icon (play ↔ pause)
+  </Step>
+</Steps>
+
+<Note>
+The icon classes `fas fa-play` and `fas fa-pause` come from Font Awesome 6.0, which is loaded in the HTML head.
+</Note>
+
+### Volume Control
+
+The volume slider uses an input event listener for real-time updates:
+
+```javascript
+controlVolumen.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+});
+```
+
+<Accordion title="Volume Control Details">
+  **How it works:**
+  
+  - The range input in HTML has `min="0"`, `max="1"`, `step="0.1"`, and `value="0.5"`
+  - The `input` event fires continuously as the user drags the slider
+  - `e.target.value` retrieves the current slider value (0.0 to 1.0)
+  - `audio.volume` accepts values from 0 (muted) to 1 (full volume)
+  - Default volume starts at 0.5 (50%)
+</Accordion>
+
+<Tip>
+Using the `input` event instead of `change` provides instant feedback as the user drags the slider, rather than waiting until they release it.
+</Tip>
+
+## Particles.js Configuration
+
+The particle animation system creates an interactive background with floating particles and connecting lines.
+
+### Main Configuration Call
+
+```javascript
+particlesJS("particles-js", {
+  // Configuration object
+});
+```
+
+The function targets the `#particles-js` div and applies the configuration object.
+
+### Particle Number Settings
+
+```javascript
+"particles": {
+  "number": {
+    "value": 80,
+    "density": {
+      "enable": true,
+      "value_area": 800
+    }
+  }
+}
+```
+
+<CardGroup cols={2}>
+  <Card title="Particle Count" icon="hashtag">
+    80 particles render on screen at once
+  </Card>
+  <Card title="Density Scaling" icon="maximize">
+    Particles automatically scale with viewport size (800px reference area)
+  </Card>
+</CardGroup>
+
+### Visual Appearance
+
+#### Color Configuration
+
+```javascript
+"color": {
+  "value": "#ffffff"
+}
+```
+
+All particles appear in white (#ffffff) to contrast with the green background.
+
+#### Shape Configuration
+
+```javascript
+"shape": {
+  "type": "circle",
+  "stroke": {
+    "width": 0,
+    "color": "#000000"
+  },
+  "polygon": {
+    "nb_sides": 5
+  },
+  "image": {
+    "src": "img/github.svg",
+    "width": 100,
+    "height": 100
+  }
+}
+```
+
+<Note>
+Although polygon and image options are configured, the `type: "circle"` means particles render as circles. The other shape options remain dormant unless the type changes.
+</Note>
+
+#### Opacity Settings
+
+```javascript
+"opacity": {
+  "value": 0.5,
+  "random": false,
+  "anim": {
+    "enable": false,
+    "speed": 1,
+    "opacity_min": 0.1,
+    "sync": false
+  }
+}
+```
+
+| Property | Value | Effect |
+|----------|-------|--------|
+| `value` | 0.5 | All particles have 50% opacity |
+| `random` | false | All particles share the same opacity |
+| `anim.enable` | false | Opacity remains constant (no fading) |
+
+#### Size Configuration
+
+```javascript
+"size": {
+  "value": 3,
+  "random": true,
+  "anim": {
+    "enable": false,
+    "speed": 40,
+    "size_min": 0.1,
+    "sync": false
+  }
+}
+```
+
+<Tip>
+With `random: true`, particles vary in size around the base value of 3, creating visual depth and variety.
+</Tip>
+
+### Line Links
+
+Particles connect with lines when close to each other:
+
+```javascript
+"line_linked": {
+  "enable": true,
+  "distance": 150,
+  "color": "#ffffff",
+  "opacity": 0.4,
+  "width": 1
+}
+```
+
+<CardGroup cols={3}>
+  <Card title="Connection Distance" icon="ruler">
+    Lines appear between particles within 150px of each other
+  </Card>
+  <Card title="Line Style" icon="minus">
+    White lines, 1px wide, with 40% opacity
+  </Card>
+  <Card title="Dynamic Network" icon="diagram-project">
+    Lines form and break as particles move, creating a dynamic network effect
+  </Card>
+</CardGroup>
+
+### Movement Configuration
+
+```javascript
+"move": {
+  "enable": true,
+  "speed": 6,
+  "direction": "none",
+  "random": false,
+  "straight": false,
+  "out_mode": "out",
+  "bounce": false,
+  "attract": {
+    "enable": false,
+    "rotateX": 600,
+    "rotateY": 1200
+  }
+}
+```
+
+#### Movement Properties Explained
+
+| Property | Value | Meaning |
+|----------|-------|---------|
+| `enable` | true | Particles move continuously |
+| `speed` | 6 | Movement speed (higher = faster) |
+| `direction` | "none" | Particles move in random directions |
+| `random` | false | Movement isn't erratic (smooth paths) |
+| `straight` | false | Particles can change direction |
+| `out_mode` | "out" | Particles leave viewport and reappear on opposite side |
+| `bounce` | false | Particles don't bounce off edges |
+
+<Note>
+The `out_mode: "out"` creates a seamless infinite effect as particles exit one side and enter from the other.
+</Note>
+
+## Interactivity Settings
+
+The configuration includes mouse interaction modes:
+
+```javascript
+"interactivity": {
+  "detect_on": "canvas",
+  "events": {
+    "onhover": {
+      "enable": true,
+      "mode": "repulse"
+    },
+    "onclick": {
+      "enable": true,
+      "mode": "push"
+    },
+    "resize": true
+  }
+}
+```
+
+<CardGroup cols={2}>
+  <Card title="Hover Repulsion" icon="hand">
+    Particles move away from the cursor, creating a bubble effect
+  </Card>
+  <Card title="Click Addition" icon="plus">
+    Clicking adds new particles to the canvas
+  </Card>
+</CardGroup>
+
+### Interaction Modes
+
+```javascript
+"modes": {
+  "grab": {
+    "distance": 400,
+    "line_linked": {
+      "opacity": 1
+    }
+  },
+  "bubble": {
+    "distance": 400,
+    "size": 40,
+    "duration": 2,
+    "opacity": 8,
+    "speed": 3
+  },
+  "repulse": {
+    "distance": 200,
+    "duration": 0.4
+  },
+  "push": {
+    "particles_nb": 4
+  },
+  "remove": {
+    "particles_nb": 2
+  }
+}
+```
+
+<Accordion title="Active Interaction Modes">
+  **Repulse Mode** (activated on hover):
+  - Pushes particles away within 200px radius
+  - Effect lasts 0.4 seconds
+  
+  **Push Mode** (activated on click):
+  - Adds 4 new particles with each click
+  - Particles appear at cursor position
+</Accordion>
+
+### Retina Display Support
+
+```javascript
+"retina_detect": false
+```
+
+<Warning>
+Retina detection is disabled. For high-DPI displays, consider enabling this with `retina_detect: true` to improve visual quality at the cost of performance.
+</Warning>
+
+## Stats.js Integration
+
+The stats display shows real-time particle count and performance metrics:
+
+```javascript
+var count_particles, stats, update;
+
+stats = new Stats;
+stats.setMode(0);
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+```
+
+<Steps>
+  <Step title="Initialize Stats">
+    Create new Stats instance with mode 0 (FPS display)
+  </Step>
+  <Step title="Position Stats Panel">
+    Set absolute positioning at top-left corner (0, 0)
+  </Step>
+  <Step title="Add to DOM">
+    Append the stats DOM element to the document body
+  </Step>
+</Steps>
+
+### Particle Counter
+
+```javascript
+count_particles = document.querySelector('.js-count-particles');
+
+update = function() {
+  stats.begin();
+  stats.end();
+  
+  if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+    count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+  }
+  
+  requestAnimationFrame(update);
+};
+
+requestAnimationFrame(update);
+```
+
+<Accordion title="Update Loop Breakdown">
+  **The update function:**
+  
+  1. `stats.begin()` and `stats.end()` - Measure frame timing for FPS
+  2. Access the particles array from the particles.js instance
+  3. Update the particle count display with current array length
+  4. `requestAnimationFrame(update)` - Schedule next update (60 FPS)
+  
+  This creates a smooth animation loop synchronized with the browser's repaint cycle.
+</Accordion>
+
+<Note>
+The particle count displays in the `.js-count-particles` element, which should be present in the HTML for this to work without errors. The current HTML doesn't include this element, so the counter won't display.
+</Note>
+
+## Complete JavaScript Code
+
+Here's the full script with comments:
+
+```javascript
+// --- Music Player Logic ---
+const audio = document.getElementById('miAudio');
+const btnPlayPausa = document.getElementById('btnPlayPausa');
+const icono = document.getElementById('icono');
+const controlVolumen = document.getElementById('controlVolumen');
+
+// Play/Pause toggle
+btnPlayPausa.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        icono.className = 'fas fa-pause';
+    } else {
+        audio.pause();
+        icono.className = 'fas fa-play';
+    }
+});
+
+// Volume control
+controlVolumen.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+});
+
+// --- Particles.js Configuration ---
+particlesJS("particles-js", {
+  "particles": {
+    "number": {"value": 80, "density": {"enable": true, "value_area": 800}},
+    "color": {"value": "#ffffff"},
+    "shape": {
+      "type": "circle",
+      "stroke": {"width": 0, "color": "#000000"},
+      "polygon": {"nb_sides": 5},
+      "image": {"src": "img/github.svg", "width": 100, "height": 100}
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {"enable": false, "speed": 1, "opacity_min": 0.1, "sync": false}
+    },
+    "size": {
+      "value": 3,
+      "random": true,
+      "anim": {"enable": false, "speed": 40, "size_min": 0.1, "sync": false}
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 6,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false,
+      "attract": {"enable": false, "rotateX": 600, "rotateY": 1200}
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {"enable": true, "mode": "repulse"},
+      "onclick": {"enable": true, "mode": "push"},
+      "resize": true
+    },
+    "modes": {
+      "grab": {"distance": 400, "line_linked": {"opacity": 1}},
+      "bubble": {"distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3},
+      "repulse": {"distance": 200, "duration": 0.4},
+      "push": {"particles_nb": 4},
+      "remove": {"particles_nb": 2}
+    }
+  },
+  "retina_detect": false
+});
+
+// --- Stats.js Integration ---
+var count_particles, stats, update;
+
+stats = new Stats;
+stats.setMode(0);
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+
+count_particles = document.querySelector('.js-count-particles');
+
+update = function() {
+  stats.begin();
+  stats.end();
+  if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+    count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+  }
+  requestAnimationFrame(update);
+};
+
+requestAnimationFrame(update);
+```
+
+## Performance Considerations
+
+<CardGroup cols={2}>
+  <Card title="Particle Count" icon="gauge-high">
+    80 particles provide visual impact without overwhelming most devices
+  </Card>
+  <Card title="Animation Loop" icon="rotate">
+    requestAnimationFrame ensures smooth 60 FPS rendering synchronized with display
+  </Card>
+</CardGroup>
+
+### Optimization Tips
+
+<Tip>
+For better performance on mobile devices, consider:
+- Reducing particle count to 40-50
+- Decreasing movement speed to 3-4
+- Disabling stats.js in production
+- Adding a device detection check to adjust settings
+</Tip>
+
+## Browser Compatibility
+
+The code uses modern JavaScript features:
+
+| Feature | Compatibility | Notes |
+|---------|---------------|-------|
+| `const` / Arrow functions | ES6+ | Supported in all modern browsers |
+| `addEventListener` | Universal | Widely supported |
+| `requestAnimationFrame` | Modern browsers | IE10+ |
+| HTML5 Audio API | Modern browsers | IE9+ |
+
+<Warning>
+For maximum compatibility with older browsers, consider transpiling the code with Babel to convert ES6 syntax to ES5.
+</Warning>
+
+## Dependencies
+
+The script depends on two external libraries:
+
+<CardGroup cols={2}>
+  <Card title="particles.js" icon="circle-nodes">
+    **Version:** 2.0.0  
+    **CDN:** jsdelivr  
+    **Purpose:** Creates and animates background particles
+  </Card>
+  <Card title="stats.js" icon="chart-line">
+    **Source:** threejs.org  
+    **Purpose:** Displays FPS and particle count statistics
+  </Card>
+</CardGroup>
+
+### Loading Order
+
+```html
+<!-- Load libraries first -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+
+<!-- Then load application code -->
+<script src="particula.js"></script>
+```
+
+<Warning>
+The application code must load after the libraries. If `particula.js` loads first, `particlesJS` and `Stats` will be undefined, causing errors.
+</Warning>

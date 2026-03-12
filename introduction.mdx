@@ -1,0 +1,217 @@
+---
+title: Introduction
+description: Welcome to Wiloza - A modern animated landing page for Williams Lopez Zavaleta
+---
+
+# Welcome to Wiloza
+
+Wiloza is a sleek, interactive personal landing page featuring animated particle effects and an integrated music player. Built for Williams Lopez Zavaleta (JL ZV), this project showcases a modern web experience with dynamic visual effects and multimedia integration.
+
+<Note>
+  The name "Wiloza" is derived from Williams Lopez Zavaleta's name, creating a unique personal brand identity.
+</Note>
+
+## What is Wiloza?
+
+Wiloza is a single-page personal landing page that combines aesthetic appeal with functionality. It features:
+
+- **Interactive particle animations** powered by particles.js
+- **Built-in music player** with play/pause and volume controls
+- **Responsive design** that works across all devices
+- **Analytics integration** with Google Analytics 4
+- **Social media integration** with Open Graph meta tags
+- **Modern gradient backgrounds** with radial color transitions
+
+## Technology Stack
+
+The project is built using a minimal yet powerful technology stack:
+
+<CardGroup cols={2}>
+  <Card title="HTML5" icon="code">
+    Semantic markup with modern meta tags for SEO and social sharing
+  </Card>
+  
+  <Card title="CSS3" icon="palette">
+    Custom styling with Google Fonts (Inter), gradients, and backdrop filters
+  </Card>
+  
+  <Card title="Vanilla JavaScript" icon="js">
+    No frameworks - pure JavaScript for music player controls and particle configuration
+  </Card>
+  
+  <Card title="particles.js" icon="sparkles">
+    Library for creating animated particle backgrounds (v2.0.0)
+  </Card>
+</CardGroup>
+
+### Key Libraries & Services
+
+- **particles.js** (v2.0.0) - Interactive particle animation system
+- **Font Awesome** (v6.0.0) - Icon library for play/pause controls
+- **Google Fonts** - Inter font family for modern typography
+- **Stats.js** - Performance monitoring for particle rendering
+- **Google Analytics 4** - User behavior and traffic analytics
+
+## Architecture Overview
+
+The project follows a simple but effective three-layer architecture:
+
+```
+Wiloza Landing Page
+├── index.html          # Structure and content
+├── particula.css       # Styles and animations
+└── particula.js        # Interactivity and particle config
+```
+
+### Component Structure
+
+<Steps>
+  <Step title="Particle Background Layer">
+    A fixed-position canvas (`#particles-js`) that fills the viewport with animated particles. Uses a radial gradient from `#28a745` to `#1a4d1a` for a vibrant green aesthetic.
+    
+    ```html
+    <div id="particles-js"></div>
+    ```
+  </Step>
+  
+  <Step title="Content Overlay">
+    Centered content container with profile image, name, and music player. Uses absolute positioning with transform centering for perfect alignment.
+    
+    ```css
+    .content-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 1;
+    }
+    ```
+  </Step>
+  
+  <Step title="Music Player Interface">
+    Interactive audio controls with a glassmorphism design using backdrop filters and semi-transparent backgrounds.
+  </Step>
+</Steps>
+
+## Visual Design
+
+The landing page features a distinctive visual identity:
+
+**Color Scheme:**
+- Primary: Green radial gradient (`#28a745` → `#1a4d1a`)
+- Text: White with Inter font family
+- Accents: White particles with 50% opacity
+
+**Typography:**
+```css
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+}
+```
+
+**Effects:**
+- Glassmorphism music player with `backdrop-filter: blur(5px)`
+- Hover animations on play button with `transform: scale(1.1)`
+- Connected particle network with interactive repulsion on hover
+
+## Getting Started
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/setup">
+    Deploy the landing page in under 5 minutes
+  </Card>
+  
+  <Card title="Features" icon="list" href="/features">
+    Explore all features in depth with code examples
+  </Card>
+  
+  <Card title="Customization" icon="paintbrush" href="/customization">
+    Learn how to customize colors, particles, and content
+  </Card>
+  
+  <Card title="Analytics" icon="chart-line" href="/features">
+    Understand the integrated analytics tracking
+  </Card>
+</CardGroup>
+
+### Quick Deployment
+
+<Steps>
+  <Step title="Clone or Download">
+    Get the source files (`index.html`, `particula.css`, `particula.js`)
+  </Step>
+  
+  <Step title="Add Assets">
+    Include your profile image (`wiloza.png`), music file (`music.mp3`), and favicon
+  </Step>
+  
+  <Step title="Configure">
+    Update meta tags, Google Analytics ID, and social links
+  </Step>
+  
+  <Step title="Deploy">
+    Upload to any static hosting service (GitHub Pages, Netlify, Vercel, etc.)
+  </Step>
+</Steps>
+
+## File Structure
+
+```bash
+wiloza/
+├── index.html              # Main HTML file with structure
+├── particula.css           # All styles and animations
+├── particula.js            # Music player logic + particle config
+├── wiloza.png              # Profile/brand image
+├── music.mp3               # Background music file
+└── images/
+    ├── favicon.ico         # Site favicon
+    └── wiloza_redes2026.jpg # OG image for social sharing (1200x630)
+```
+
+<Tip>
+  The Open Graph image should be 1200x630 pixels for optimal display on social media platforms like Facebook, Twitter, and LinkedIn.
+</Tip>
+
+## Browser Compatibility
+
+Wiloza uses modern web standards and is compatible with:
+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Opera 76+
+
+<Warning>
+  The `backdrop-filter` CSS property (used for glassmorphism effect) may not work in older browsers. The page will still be functional but the music player background will be less polished.
+</Warning>
+
+## Performance
+
+The page includes Stats.js for real-time performance monitoring:
+
+```javascript
+stats = new Stats();
+stats.setMode(0); // FPS mode
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+```
+
+Particle count is dynamically tracked and displayed:
+- Default: 80 particles
+- Density-based: Adjusts based on viewport size (800px² value area)
+- Interactive: Adds 4 particles on click, removes 2 on remove mode
+
+## What's Next?
+
+Explore the [Features](/features) page to dive deep into each component, including:
+- Particle system configuration
+- Music player implementation
+- Interactive modes and effects
+- Analytics and SEO setup

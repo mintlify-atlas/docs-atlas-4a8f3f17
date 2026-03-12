@@ -1,0 +1,242 @@
+---
+title: 'HTML Structure'
+description: 'Complete HTML structure documentation for the Wiloza landing page'
+---
+
+## Overview
+
+The Wiloza landing page is built with a minimal HTML structure that combines particle animations with a centered content overlay. The page features Open Graph meta tags for social sharing, Google Analytics tracking, and an interactive music player.
+
+## Document Head
+
+### Meta Tags and SEO
+
+The page includes comprehensive Open Graph meta tags for optimal social media sharing:
+
+```html
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.wiloza.com/">
+<meta property="og:title" content="Polos dev ux/ui">
+<meta property="og:description" content="Polos personalizados dirigido a desarrolladores web, diseñadores ux/ui y gamers.">
+<meta property="og:image" content="https://www.wiloza.com/images/wiloza_redes2026.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+```
+
+<CardGroup cols={2}>
+  <Card title="Social Sharing" icon="share-nodes">
+    Open Graph tags ensure the page displays correctly when shared on Facebook, LinkedIn, and other social platforms with a 1200x630 image.
+  </Card>
+  <Card title="SEO Optimized" icon="magnifying-glass">
+    Proper meta tags help search engines understand and index the page content effectively.
+  </Card>
+</CardGroup>
+
+### Google Analytics Integration
+
+The page includes Google Analytics 4 tracking:
+
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TYKW6F9T6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4TYKW6F9T6');
+</script>
+```
+
+<Note>
+The gtag.js script loads asynchronously to avoid blocking page rendering while still capturing visitor analytics.
+</Note>
+
+### External Resources
+
+The page links to several external stylesheets and libraries:
+
+```html
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+<!-- Main stylesheet -->
+<link rel="stylesheet" href="particula.css">
+
+<!-- Font Awesome 6.0 icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+```
+
+## Body Structure
+
+The body contains three main structural layers:
+
+<Steps>
+  <Step title="Particles Background">
+    The `#particles-js` div serves as the animated background layer
+  </Step>
+  <Step title="Content Overlay">
+    The `.content-overlay` div contains all visible content, positioned above particles
+  </Step>
+  <Step title="External Scripts">
+    JavaScript libraries load at the bottom for optimal performance
+  </Step>
+</Steps>
+
+### Particles Container
+
+The particles container acts as a full-screen background:
+
+```html
+<!-- particles.js container -->
+<div id="particles-js"></div>
+```
+
+<Tip>
+This div is positioned as `fixed` or `absolute` with `z-index: -1` via CSS, ensuring it stays behind all content while filling the viewport.
+</Tip>
+
+### Content Overlay
+
+The content overlay centers all visible elements on the page:
+
+```html
+<div class="content-overlay">
+  <a href="https://pengrafic.rdi.store/">
+    <img src="wiloza.png" alt="Polos - Wiloza" class="profile-pic">
+  </a>
+  <h1>
+    <a href="https://www.facebook.com/wiloza/">JL ZV</a>
+  </h1>
+  
+  <!-- Music player component -->
+  <div class="music-player">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+<Accordion title="Content Overlay Breakdown">
+  - **Profile Image**: Linked to the e-commerce store (pengrafic.rdi.store)
+  - **Title/Name**: "JL ZV" linked to Facebook profile
+  - **Music Player**: Interactive audio controls
+  
+  All elements are centered using CSS transforms and flexbox.
+</Accordion>
+
+## Music Player Component
+
+### Audio Element
+
+The audio element is configured to loop continuously:
+
+```html
+<audio id="miAudio" loop>
+  <source src="music.mp3" type="audio/mpeg">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+```
+
+<Note>
+The `loop` attribute ensures the audio restarts automatically when it reaches the end. The fallback text displays only in browsers without HTML5 audio support.
+</Note>
+
+### Player Controls
+
+The controls section contains play/pause and volume controls:
+
+```html
+<div class="controls">
+  <button id="btnPlayPausa">
+    <i id="icono" class="fas fa-play"></i>
+  </button>
+  <input type="range" id="controlVolumen" min="0" max="1" step="0.1" value="0.5">
+</div>
+```
+
+<CardGroup cols={2}>
+  <Card title="Play/Pause Button" icon="circle-play">
+    Uses Font Awesome icons that toggle between `fa-play` and `fa-pause` states via JavaScript.
+  </Card>
+  <Card title="Volume Slider" icon="volume-high">
+    Range input allows volume control from 0 (muted) to 1 (full volume) in 0.1 increments, defaulting to 0.5.
+  </Card>
+</CardGroup>
+
+## External Scripts
+
+Scripts are loaded at the end of the body for optimal performance:
+
+```html
+<!-- particles.js lib -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<!-- stats.js lib -->
+<script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+
+<!-- Main application script -->
+<script src="particula.js"></script>
+```
+
+<Warning>
+The scripts load in a specific order: particles.js must load before particula.js, as the main script depends on the particles library being available.
+</Warning>
+
+### Script Purposes
+
+| Script | Purpose | Source |
+|--------|---------|--------|
+| particles.min.js | Creates and animates background particles | CDN (jsdelivr) |
+| stats.min.js | Displays particle count and performance stats | CDN (threejs.org) |
+| particula.js | Custom code for music player and particle configuration | Local |
+
+## Complete HTML Structure
+
+Here's the full HTML document structure:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Open Graph meta tags -->
+  <!-- Google Analytics -->
+  <!-- Charset and viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiloza - Williams Lopez Zavaleta</title>
+  
+  <!-- External resources -->
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <link rel="stylesheet" href="particula.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Background particles layer -->
+  <div id="particles-js"></div>
+  
+  <!-- Foreground content layer -->
+  <div class="content-overlay">
+    <!-- Profile image and title -->
+    <!-- Music player component -->
+  </div>
+  
+  <!-- External libraries and scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+  <script src="particula.js"></script>
+</body>
+</html>
+```
+
+## Design Principles
+
+<CardGroup cols={3}>
+  <Card title="Minimal DOM" icon="sitemap">
+    Clean structure with minimal divs keeps the page lightweight and performant.
+  </Card>
+  <Card title="Semantic HTML" icon="code">
+    Proper use of semantic elements like `<audio>`, `<button>`, and `<input>` for accessibility.
+  </Card>
+  <Card title="Progressive Enhancement" icon="layer-group">
+    Fallback text for audio ensures basic functionality without JavaScript.
+  </Card>
+</CardGroup>
